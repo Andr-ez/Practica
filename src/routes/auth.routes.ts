@@ -32,11 +32,16 @@ router.post('/login', async (req: Request, res: Response) => {
     return res.status(401).json({ error: 'Invalid credentials' });
   }
 
+  const JWT_SECRET = process.env.JWT_SECRET as string;
+
   const token = jwt.sign(
     { id: user.id, email: user.email },
-    'secret123',
+    JWT_SECRET,
     { expiresIn: '1h' }
   );
+
+  console.log("JWT_SECRET usado en login:", JWT_SECRET);
+  console.log("Token generado:", token);
 
   res.json({ token });
 });

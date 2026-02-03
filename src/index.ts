@@ -3,6 +3,7 @@
 import express from "express";
 import usuariosRoutes from "./routes/usuarios.routes";
 import authRoutes from "./routes/auth.routes";
+import routes from "./routes";
 import 'dotenv/config';
 
 
@@ -19,8 +20,7 @@ app.get("/", (req, res) => {
 });
 
 
-app.use("/usuarios", usuariosRoutes);
-app.use("/auth", authRoutes);
+app.use(routes);
 
 
 const PORT = process.env.PORT || 3000;
