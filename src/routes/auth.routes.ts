@@ -16,6 +16,7 @@ router.post('/login', async (req: Request, res: Response) => {
 
   const user = await prisma.user.findUnique({
     where: { email },
+    select: { id: true, email: true, password: true, role: true }
   });
 
   console.log('USER DB:', user);
@@ -35,7 +36,7 @@ router.post('/login', async (req: Request, res: Response) => {
   const JWT_SECRET = process.env.JWT_SECRET as string;
 
   const token = jwt.sign(
-    { id: user.id, email: user.email },
+    { id: user.id, email: user.email, role: user.role },
     JWT_SECRET,
     { expiresIn: '1h' }
   );
